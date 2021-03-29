@@ -1,7 +1,17 @@
-"""asd
+"""Dielectrics submodule
+
+This submodule has functions that deal with moving between different ways of
+representing the electromagnetic properties of dielectrics, i.e. conversions
+between conductivity, loss tangent, and the imaginary part of the complex
+relative permittivity.
+
+There is also one function on calculating the equivalent real permittivity
+of a multilayered material.
+
+Finally, there are implementations of the Cole-Cole single pole relaxation
+model and the Debye multipole one.
 """
 
-import warnings
 from typing import List
 import numpy as np
 from scipy.constants import epsilon_0
@@ -28,8 +38,14 @@ def conductivity_to_tan_delta(freq: float, conductivity: float,
         The value for the loss tangent, as a `float` number.
 
     Raises:
+        ValueError: If a negative value is provided for the permittivity or
+                    the conductivity
         ZeroDivisionError: If you specify 0 Hz, i.e. DC, for the frequency
     """
+
+    if (real_permittivity < 0) or (conductivity < 0):
+        raise ValueError('The real part of the permittivity and the'
+                         ' conductivity must be positive')
 
     try:
         tan_delta = 17.97591 * conductivity / (real_permittivity * freq)
@@ -58,11 +74,14 @@ def tan_delta_to_conductivity(freq: float, real_permittivity: float,
         The value for conductivity in S/m, which is equivalent to mho/m.
 
     Raises:
-        ZeroDivisionError: If you specify 0 Hz, i.e. DC, for the frequency
+        ValueError: If you specify 0 Hz, i.e. DC, for the frequency
     """
 
+    if real_permittivity < 0:
+        raise ValueError('The real part of the permittivity must be positive')
+
     if np.isclose(freq, 0):
-        raise ZeroDivisionError('Frequency must be > 0')
+        raise ValueError('Frequency must be > 0')
 
     conductivity = 0.05563 * real_permittivity * tan_delta * freq
 
@@ -92,7 +111,7 @@ def complex_permittivity_to_tan_delta(real_permittivity: float,
     """
 
     try:
-        tan_delta = imag_permittivity / real_permittivity
+        tan_delta = np.abs(imag_permittivity) / np.abs(real_permittivity)
     except ZeroDivisionError as error:
         raise ZeroDivisionError('Real part must be > 0'). \
               with_traceback(error.__traceback__)
@@ -124,7 +143,7 @@ def imaginary_permittivity_to_conductivity(freq: float,
     if np.isclose(freq, 0):
         raise ZeroDivisionError('Frequency must be > 0')
 
-    conductivity = 0.05563 * freq * imag_permittivity
+    conductivity = 0.05563 * freq * np.abs(imag_permittivity)
 
     return conductivity
 

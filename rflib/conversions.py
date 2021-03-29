@@ -1,4 +1,7 @@
-"""
+"""Conversions submodule
+
+Short and sweet functions to go between dB, Np, and magnitude. Might be more
+added in the future, when and if the need for those arises.
 """
 
 import numpy as np

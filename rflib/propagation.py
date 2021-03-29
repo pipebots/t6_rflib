@@ -1,34 +1,12 @@
-"""Helper functions for Python-based EM simulations
+"""Propagation submodule
 
-A library of utility functions useful when setting up and running various
-EM simulations using Pythin tools, such as gprMax, scikit-rf, or generic
-RF/microwave calculations.
-
-Currently mainly contains functions for swapping between different ways
-of representing the complex relative permittivity of materials.
-
-Other functions are used to calculate current through a Hertzian dipole
-based on required radiated power, and the equivalent relative permittivity
-of a multi-layer medium.
-
-Added 26.VI.2020:
-    - Conversion between dB and Np
-    - Skin depth calculator
-    - Far field distance calculator
-    - Fresnel zone calculator
-    - Maximum antenna separation for a given first Fresnel zone radius
-    - Propagation constant for a plane wave through homogeneous medium
-
-Added 14.VII.2020:
-    - Frequency-dependent metal resistance
-
-Added 21.VII.2020:
-    - Single-pole Cole-Cole dielectric model
-    - Multipole Debye dielectric model
+A few functions vaguely related to electromagnetic propagation in conductors
+and dielectrics.
 """
 
 from typing import Tuple
 import numpy as np
+from numpy.lib.type_check import imag
 from scipy.constants import epsilon_0, mu_0, speed_of_light
 
 
@@ -146,6 +124,8 @@ def plane_wave_prop_const(freq: float, real_permittivity: float,
         RuntimeError: If any of the square root arguments turn out to be
                       negative
     """
+
+    imag_permittivity = np.abs(imag_permittivity)
 
     real_permittivity *= epsilon_0
     imag_permittivity *= epsilon_0

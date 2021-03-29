@@ -1,4 +1,9 @@
-"""[summary]
+"""Antennas submodule
+
+This submodule contains functions for various support calculations related to
+antennas and propagation. Currently there are no functions that are used for
+the design of antennas, but there is the intention to include ones for
+patch and horn antennas in the future.
 """
 
 import numpy as np
@@ -18,8 +23,9 @@ def hertzian_dipole_current(freq: float, power: float, length: float,
     to be passed through the dipole.
 
     Notes:
-        1. Strictly speaking, this formula is valid for a time-harmonic current
-        excitation. Other, stranger excitations require more maths.
+        1. Strictly speaking, this formula is only valid for a time-harmonic
+        sinusoidal current excitation. Other, stranger excitations require
+        more maths.
 
     Args:
         freq: A `float` with the frequency at which the dipole is radiating.
