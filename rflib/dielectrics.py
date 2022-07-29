@@ -253,8 +253,8 @@ def cole_cole_single(freq: float, er_static: float, er_inf: float,
               with_traceback(error.__traceback__)
 
     er_complex_2 = er_static - er_inf
-    foo = 1j * ang_freq * relax_time
-    er_complex_2 /= (1 + np.power(foo, 1 - alpha))
+    temp_base = 1j * ang_freq * relax_time
+    er_complex_2 /= (1 + np.power(temp_base, 1 - alpha))
 
     er_complex = er_inf + er_complex_2 + er_complex_1
 
@@ -303,7 +303,7 @@ def debye_multipole(freq: float, er_inf: float, cond_static: float,
         raise ZeroDivisionError('Frequency must be > 0.'). \
               with_traceback(error.__traceback__)
 
-    er_complex_2 = 0
+    er_complex_2 = 0 + 0j
     for t_relax, er_disp in zip(relax_times, er_disps):
         er_complex_2 += (er_disp / (1 + (1j * ang_freq * t_relax)))
 

@@ -11,11 +11,23 @@ np.seterr(divide='raise', invalid='raise')
 
 
 def nepers_to_db(nepers: float) -> float:
-    return (nepers * 8.685889638)
+    """Converts nepers (Np) to decibels (dB)
+
+    Used to move between natural log units to log 10 units, which are more
+    commonly used in communications engineering
+    """
+
+    return nepers * 8.685889638
 
 
-def db_to_nepers(db: float) -> float:
-    return (db * 0.115129255)
+def db_to_nepers(decibels: float) -> float:
+    """Converts decibels (dB) to nepers (Np)
+
+    Used to move between log 10 units to natural log units, which are more
+    commonly used in most mathematical equations
+    """
+
+    return decibels * 0.115129255
 
 
 def db_to_mag(value: float, mode: str = 'power') -> float:

@@ -6,7 +6,6 @@ and dielectrics.
 
 from typing import Tuple
 import numpy as np
-from numpy.lib.type_check import imag
 from scipy.constants import epsilon_0, mu_0, speed_of_light
 
 
@@ -91,10 +90,10 @@ def metal_resistance(freq: float, conductivity: float,
         raise ZeroDivisionError('Frequency must be > 0'). \
               with_traceback(error.__traceback__)
 
-    metal_resistance = np.pi * np.sqrt(mu_0 / epsilon_0)
-    metal_resistance *= (metal_skin_depth / wavelength)
+    resistance = np.pi * np.sqrt(mu_0 / epsilon_0)
+    resistance *= (metal_skin_depth / wavelength)
 
-    return metal_resistance
+    return resistance
 
 
 def plane_wave_prop_const(freq: float, real_permittivity: float,

@@ -11,7 +11,14 @@
 
 ## Overview
 
-This module contains various utility functions that I use in my work on the electromagnetic modelling of sewer pipes. A lot of them are general purpose and can be applied to other situations. The functions themselves are not particularly optimised for performance at the moment.
+This module contains various utility functions that are used in Theme 6's work on the electromagnetic modelling of sewer pipes. A lot of them are general purpose and can be applied to other situations. The functions themselves are not particularly optimised for performance at the moment.
+
+There are currently four submodules:
+
+- `antennas` - Currently has a few basic functions for calculating Fresnel zones, far-field distances, and current through a Hertzian dipole. Potential to merge work on patch and horn antenna design into here.
+- `conversions` - Helper functions for moving between different units popular in electromagnetics, e.g. linear magnitude to dB, dB to Np, etc.
+- `dielectrics` - Functions to deal with the different representations of a material's complex relative permittivity. Used extensively in setting up and running gprMax simulations and theoretical analysis of lossy waveguides.
+- `propagation` - Functions related to electromagnetic wave propagation in various media.
 
 ## Requirements
 
@@ -31,4 +38,8 @@ Use `pip install -e .` in the folder to which you clone or download this. This w
 
 ## Contributing
 
-Contributions are more than welcome and are in fact actively sought! Please contact Viktor either at [eenvdo@leeds.ac.uk](mailto:eenvdo@leeds.ac.uk) or on the `Pipebots` Slack.
+Contributions are more than welcome and are in fact actively sought! Please contact Viktor at [eenvdo@leeds.ac.uk](mailto:eenvdo@leeds.ac.uk).
+
+## Acknowledgements
+
+This work is supported by the UK's Engineering and Physical Sciences Research Council (EPSRC) Programme Grant EP/S016813/1

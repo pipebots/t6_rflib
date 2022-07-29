@@ -6,10 +6,10 @@ the design of antennas, but there is the intention to include ones for
 patch and horn antennas in the future.
 """
 
-import numpy as np
 import warnings
-from scipy.constants import speed_of_light
 
+import numpy as np
+from scipy.constants import speed_of_light
 
 np.seterr(divide='raise', invalid='raise')
 
